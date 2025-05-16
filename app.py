@@ -35,7 +35,7 @@ llm = get_llm(st.session_state["OPENAI_API_KEY"],
 graph = build_graph(
     openai_api_key=st.session_state["OPENAI_API_KEY"],
     tavily_api_key=st.session_state["TAVILY_API_KEY"],
-    ChatOpenAI(model="gpt-4o", temperature=0, api_key=os.getenv('OPENAI_API_KEY'))
+    llm=ChatOpenAI(model="gpt-4o", temperature=0, api_key=os.getenv('OPENAI_API_KEY'))
 )
 
 # --- Chat session state ---
