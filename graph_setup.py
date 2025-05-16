@@ -14,14 +14,15 @@ from langgraph.graph import StateGraph, START
 from langgraph.checkpoint.memory import MemorySaver
 from langgraph.prebuilt import ToolNode, tools_condition
 from langgraph.graph.message import add_messages
+class State(TypedDict):
+        messages: Annotated[list, add_messages]
+
 
 # Graph builder
 def build_graph(openai_api_key, tavily_api_key, llm):
     from langgraph.graph import StateGraph
     from typing import TypedDict, Annotated
-    class State(TypedDict):
-        messages: Annotated[list, add_messages]
-
+    
     type_State = list
     memory = MemorySaver()
     
