@@ -29,13 +29,14 @@ if not st.session_state.get("OPENAI_API_KEY") or not st.session_state.get("TAVIL
 # --- Build LangGraph with keys ---
 from langchain_openai import ChatOpenAI
 
-llm = get_llm(st.session_state["OPENAI_API_KEY"], 
-              st.session_state["TAVILY_API_KEY"])
+def get_llm(api_key: str):
+    return ChatOpenAI(model="gpt-4o", temperature=0, api_key=api_key)
+llm = get_llm(st.session_state["OPENAI_API_KEY"])
 
 graph = build_graph(
     openai_api_key=st.session_state["OPENAI_API_KEY"],
     tavily_api_key=st.session_state["TAVILY_API_KEY"],
-    llm=ChatOpenAI(model="gpt-4o", temperature=0, api_key=os.getenv('OPENAI_API_KEY'))
+    llm=llm
 )
 
 # --- Chat session state ---
