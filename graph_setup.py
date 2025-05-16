@@ -15,25 +15,21 @@ from langgraph.checkpoint.memory import MemorySaver
 from langgraph.prebuilt import ToolNode, tools_condition
 from langgraph.graph.message import add_messages
 
-# State definition
-type_State = list  # messages list
-
-# Prepare memory saver
-memory = MemorySaver()
-
-# Import and bind tools dynamically
-from tools import get_search_tool
-search_tool = get_search_tool()
-tools = [search_tool]
-tool_node = ToolNode(tools=tools)
-llm_with_tools = llm.bind_tools(tools)
-
 # Graph builder
 def build_graph(openai_api_key, tavily_api_key, llm):
     from langgraph.graph import StateGraph
     from typing import TypedDict, Annotated
     class State(TypedDict):
         messages: Annotated[list, add_messages]
+
+    type_State = list
+    memory = MemorySaver()
+    
+    from tools import get_search_tool
+    search_tool = get_search_tool(tavily_api_key)
+    tools = [search_tool]
+    tool_node = ToolNode(tools=tools)
+    llm_with_tools = llm.bind_tools(tools)
 
     graph_builder = StateGraph(State)
 
