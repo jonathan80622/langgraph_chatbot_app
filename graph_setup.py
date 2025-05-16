@@ -48,6 +48,3 @@ def chatbot(state: State):
 
     # Compile with memory
     return graph_builder.compile(checkpointer=memory)
-
-# Expose the built graph
-graph = build_graph()
