@@ -21,9 +21,6 @@ type_State = list  # messages list
 # Prepare memory saver
 memory = MemorySaver()
 
-# Initialize the LLM
-llm = ChatOpenAI(model="gpt-4o", temperature=0, api_key=os.getenv('OPENAI_API_KEY'))
-
 # Import and bind tools dynamically
 from tools import get_search_tool
 search_tool = get_search_tool()
@@ -32,7 +29,7 @@ tool_node = ToolNode(tools=tools)
 llm_with_tools = llm.bind_tools(tools)
 
 # Graph builder
-def build_graph():
+def build_graph(openai_api_key, tavily_api_key, llm):
     from langgraph.graph import StateGraph
     from typing import TypedDict, Annotated
     class State(TypedDict):
