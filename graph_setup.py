@@ -36,6 +36,7 @@ def build_graph(openai_api_key, tavily_api_key, llm):
     llm_with_tools = llm.bind_tools(tools)
 
     graph_builder = StateGraph(State)
+    return graph_builder
 
     # Chatbot node
 def chatbot(state: State):
