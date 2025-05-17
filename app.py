@@ -37,6 +37,7 @@ if "graph" not in st.session_state:
     st.session_state["graph"] = build_graph(
         openai_api_key = st.session_state["OPENAI_API_KEY"],
         tavily_api_key = st.session_state["TAVILY_API_KEY"],
+        llm = llm
     )
 
 graph = st.session_state["graph"]          # reuse the same object every rerun
