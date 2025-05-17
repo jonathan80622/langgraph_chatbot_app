@@ -36,13 +36,10 @@ def build_graph(openai_api_key, tavily_api_key, llm):
     llm_with_tools = llm.bind_tools(tools)
 
     graph_builder = StateGraph(State)
-    return graph_builder
 
-    # Chatbot node
-def chatbot(state: State):
-    return {"messages": [llm_with_tools.invoke(state["messages"]) ]}
+    def chatbot(state: State):
+        return {"messages": [llm_with_tools.invoke(state["messages"]) ]}
 
-    # Add nodes and edges
     graph_builder.add_node("chatbot", chatbot)
     graph_builder.add_node("tools", tool_node)
     graph_builder.add_conditional_edges("chatbot", tools_condition)
