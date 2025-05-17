@@ -27,7 +27,6 @@ def build_graph(openai_api_key, tavily_api_key, llm):
     type_State = list
     memory = MemorySaver()
     
-    tools = [search_tool]
     search_tool = TavilySearchResults(
         max_results=4,
         tavily_api_key=tavily_api_key,
