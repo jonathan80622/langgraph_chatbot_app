@@ -54,6 +54,6 @@ if user_input := st.chat_input("You:"):
         {"messages": [("user", user_input)]},
         config={"configurable": {"thread_id": "1"}}
     )
-    response = result["messages"][-1]["content"]
+    response = result["messages"][-1].content
     st.session_state["messages"].append({"role": "assistant", "content": response})
     st.chat_message("assistant").write(response)
