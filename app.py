@@ -33,11 +33,19 @@ def get_llm(api_key: str):
     return ChatOpenAI(model="gpt-4o", temperature=0, api_key=api_key)
 llm = get_llm(st.session_state["OPENAI_API_KEY"])
 
-graph = build_graph(
-    openai_api_key=st.session_state["OPENAI_API_KEY"],
-    tavily_api_key=st.session_state["TAVILY_API_KEY"],
-    llm=llm
-)
+if "graph" not in st.session_state:
+    st.session_state["graph"] = build_graph(
+        openai_api_key = st.session_state["OPENAI_API_KEY"],
+        tavily_api_key = st.session_state["TAVILY_API_KEY"],
+    )
+
+graph = st.session_state["graph"]          # reuse the same object every rerun
+
+# graph = build_graph(
+#     openai_api_key=st.session_state["OPENAI_API_KEY"],
+#     tavily_api_key=st.session_state["TAVILY_API_KEY"],
+#     llm=llm
+# )
 
 # --- Chat session state ---
 if "messages" not in st.session_state:
